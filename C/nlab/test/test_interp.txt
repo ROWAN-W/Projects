@@ -1,0 +1,224 @@
+Unit testing:
+   
+ Testing with assert():
+
+   //Black-box testing
+   //Extract filename from string with double quotes
+   void extractstr(char* dest, char*src)
+    
+   //White-box testing
+   //Checks if var a is bigger than size 0
+   //Flips the boolean values
+   var* a=ncalloc(1,sizeof(var));
+   assert(!u_not(a));
+   a->matrix[0][0]=5;
+   a->matrix[0][1]=0;
+   a->row=1;
+   a->col=2;
+   assert(u_not(a));
+   assert(!a->matrix[0][0]);
+   assert(a->matrix[0][1]);
+
+   a->row=3;
+   a->col=3;
+   a->matrix[0][2]=1;
+   a->matrix[1][0]=1;
+   a->matrix[1][1]=1;
+   a->matrix[2][1]=1;
+   
+   //White-box testing 
+   assert(u_eightcount(a));
+   assert(a->matrix[1][1]==4);
+   assert(a->matrix[1][0]==3);
+
+   
+   var* b=ncalloc(1,sizeof(var));
+   var* c=ncalloc(1,sizeof(var));
+
+   b->matrix[0][1]=1;
+   b->matrix[1][2]=10;
+   //black-box testing on _bop()
+   _bop(a,b,c,"B-AND");
+   assert(c->matrix[0][0]==0);
+   assert(c->matrix[1][2]==1);
+   _bop(a,b,c,"B-OR");
+   assert(c->matrix[2][2]==1);
+   assert(c->matrix[2][1]==1);
+   _bop(a,b,c,"B-GREATER");
+   assert(c->matrix[0][1]==1);
+   assert(c->matrix[1][2]==0);
+   _bop(a,b,c,"B-LESS");
+   assert(c->matrix[0][1]==0);
+   assert(c->matrix[1][2]==1);
+   _bop(a,b,c,"B-ADD");
+   assert(c->matrix[0][1]==5);
+   assert(c->matrix[1][2]==13);
+   _bop(a,b,c,"B-TIMES");
+   assert(c->matrix[0][1]==4);
+   assert(c->matrix[1][2]==30);
+   assert(c->matrix[1][1]==0);
+   b->matrix[0][2]==1;
+   _bop(a,b,c,"B-EQUALS");
+   assert(c->matrix[0][2]==1);
+   assert(c->matrix[1][2]==0);
+
+
+   free(a);
+   free(b);
+   free(c);
+
+   //White-box testing
+   //Initialize a var with integer x
+   var a=inttovar(3);
+   assert(a.matrix[0][0]=3);
+   assert(a.matrix[10][17]=0);
+
+   //black-box testing
+   //extract filename from string with double quotes
+   void extractstr(char* dest, char*src);
+   char x[MAXTOKENSIZE]="",y[MAXTOKENSIZE]="\"filename\"";
+   extractstr(x,y);
+   assert(x[0]=='f');
+   assert(x[7]=='e');
+
+   //White-box testing with assert()
+   //Checks if var size equals 1x1
+   bool checkint(var* v);
+   var* e=ncalloc(1,sizeof(var));
+   var* f=ncalloc(1,sizeof(var));
+   
+   e->row=1;
+   e->col=1;
+   e->matrix[0][0]=7;
+   f->row=2;
+   f->col=3;
+   f->matrix[1][2]=5;
+
+   assert(checkint(e));
+   assert(e->isint);
+   assert(!checkint(f));
+   assert(!f->isint);
+
+   //Checks the size of two vars  
+   bool match(var*a,var*b);
+   assert(match(e,f))；
+   assert(e->col==3);
+   assert(e->matrix[1][2]==7);
+   e->row=3;
+   assert(!match(e,f));
+
+   free(e);
+   free(f);
+
+
+ Testing with testcases:
+   
+    set(),print() with interpretation (balck-box testing):
+    1.setprinta.nlb (from Neill)
+    $./interp_s test/testcases/setprinta.nlb
+    output:
+    5
+
+    2.setprintb.nlb (from Neill)
+    $./interp_s test/testcases/setprintb.nlb
+    output:
+    ARRAY:
+    3 3 3 3 3
+    3 3 3 3 3
+    3 3 3 3 3
+    3 3 3 3 3
+    3 3 3 3 3
+    3 3 3 3 3
+
+    3.setprintc.nlb (from Neill)
+    $./interp_s test/testcases/setprintc.nlb
+    output:
+    2
+    5
+    10
+    
+    //Detects undefined variables
+    //Push one var down
+    void i_pushdown(Program*p) (white-box testing):
+    1.ti_pushdown0.nlb ("BEGIN { SET $I := 5 ; PRINT $I }")
+    $./interp_s test/testcases/ti_pushdown0.nlb
+    output:Undefined Variable in Polihlist
+
+    //Pops one var, push one dwon
+    //White-box tested
+    void i_uop(Program*p)
+    1.ti_uop0.nlb ("BEGIN {SET $I := U-NOT ; PRINT $I }")
+    $./interp_s test/testcases/ti_uop0.nlb
+    output:No Variable in the Stack
+
+    //White-box testing
+    //Pops two variables, push down one
+    //Detects Undefined Variable and Non-matching array size
+    void i_bop(Program*p)
+    1.ti_bop0.nlb ("BEGIN { ONES 6 5 $A ONES 4 5 $B SET $C := $A $B B-ADD ; }")
+    $./interp_s test/testcases/ti_bop0.nlb
+    output:Non-matching array size
+
+    testing read() and loop() with lifeb323.nlb and lglider.arr
+    $./interp_s test/testcases/lifeb3s23.nlb
+    output:
+1
+0 0 0 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 0 0 0
+2
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0
+3
+0 0 0 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 0 0 0
+4
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0
+5
+0 0 0 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 0 0 0
+6
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0
+7
+0 0 0 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 0 0 0
+8
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0
+9
+0 0 0 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 1 0 0
+0 0 0 0 0
+10
+0 0 0 0 0
+0 0 0 0 0
+0 1 1 1 0
+0 0 0 0 0
+0 0 0 0 0

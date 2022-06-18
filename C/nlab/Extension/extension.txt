@@ -1,0 +1,10 @@
+//Extended codes are guarded by #ifdef EXTENSION and #endif
+//Extension will not be separated into a parser and an interpreter
+
+1. IF statement:
+//Variables of PUSHDOWN in IF have to be of size 1x1
+<IF> ::= "IF" "(" <PUSHDOWN> <PUSHDOWN> <BOOLOP> ")" "{" <INSTRCLIST>
+<BOOLOP> ::= "B-AND" | "B-OR" | "B-GREATER" | "B-LESS" | "B-EQUALS"
+
+2.Loop index will not be changeable during the loop
+

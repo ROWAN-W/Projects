@@ -1,0 +1,4 @@
+BEGIN 
+{ 
+SET $C := 012 $A U-NOT B-AND $B
+}

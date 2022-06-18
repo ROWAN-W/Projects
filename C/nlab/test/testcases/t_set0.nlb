@@ -1,0 +1,5 @@
+BEGIN
+{
+PRINT "S-D" 
+SET $A := $S
+}

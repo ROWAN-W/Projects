@@ -1,0 +1,4 @@
+BEGIN
+{
+PRINT "A B" 
+}

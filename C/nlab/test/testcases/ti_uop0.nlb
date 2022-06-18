@@ -1,0 +1,4 @@
+BEGIN {
+   SET $I := U-NOT ;
+   PRINT $I
+}

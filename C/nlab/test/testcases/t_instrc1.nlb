@@ -1,0 +1,8 @@
+BEGIN 
+{ 
+PINT 
+SET  
+ONES
+READ
+LOOP 
+}

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ModuleSim>
+  <view camX="-105.41982105530286" camY="-67.4741470073518" zoom="3"/>
+  <ModuleSim>
+    <module ID="0" type="CLOCK">
+      <dim orient="0" x="125.0" y="-300.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="1"/>
+        <output ID="2"/>
+      </outputs>
+      <data clock_phase="2" label="" label_size="0"/>
+    </module>
+    <module ID="3" type="ADDSUB">
+      <dim orient="0" x="-100.0" y="-50.0"/>
+      <inputs>
+        <input ID="7"/>
+        <input ID="8"/>
+        <input ID="9"/>
+      </inputs>
+      <outputs>
+        <output ID="4"/>
+        <output ID="5"/>
+        <output ID="6"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="10" type="REGISTER">
+      <dim orient="0" x="-100.0" y="-225.0"/>
+      <inputs>
+        <input ID="11"/>
+        <input ID="12"/>
+      </inputs>
+      <outputs>
+        <output ID="13"/>
+        <output ID="14"/>
+      </outputs>
+      <data label="" label_size="0" latched_value="1000"/>
+    </module>
+    <module ID="15" type="REGISTER">
+      <dim orient="0" x="-175.0" y="125.0"/>
+      <inputs>
+        <input ID="16"/>
+        <input ID="17"/>
+      </inputs>
+      <outputs>
+        <output ID="18"/>
+        <output ID="19"/>
+      </outputs>
+      <data label="" label_size="0" latched_value="0111"/>
+    </module>
+    <module ID="20" type="SWITCH">
+      <dim orient="0" x="-25.0" y="125.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="21"/>
+      </outputs>
+      <data label="" label_size="0" switch_set="0001"/>
+    </module>
+    <module ID="22" type="FANOUT">
+      <dim orient="0" x="-100.0" y="-300.0"/>
+      <inputs>
+        <input ID="27"/>
+      </inputs>
+      <outputs>
+        <output ID="23"/>
+        <output ID="24"/>
+        <output ID="25"/>
+        <output ID="26"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="28" type="DEMUX">
+      <dim orient="0" x="-225.0" y="-650.0"/>
+      <inputs>
+        <input ID="29"/>
+        <input ID="30"/>
+      </inputs>
+      <outputs>
+        <output ID="31"/>
+        <output ID="32"/>
+        <output ID="33"/>
+        <output ID="34"/>
+        <output ID="35"/>
+      </outputs>
+      <data label="" label_size="0"/>
+    </module>
+    <module ID="36" type="SWITCH">
+      <dim orient="0" x="-225.0" y="-475.0"/>
+      <inputs/>
+      <outputs>
+        <output ID="37"/>
+      </outputs>
+      <data label="" label_size="0" switch_set="0001"/>
+    </module>
+  </ModuleSim>
+  <links>
+    <link src="18" targ="7" type="StraightPath">
+      <ctrlPt x="-175.0" y="50.0"/>
+      <ctrlPt x="-125.0" y="50.0"/>
+    </link>
+    <link src="21" targ="8" type="StraightPath">
+      <ctrlPt x="-25.0" y="75.0"/>
+      <ctrlPt x="-75.0" y="75.0"/>
+    </link>
+    <link src="2" targ="17" type="StraightPath">
+      <ctrlPt x="50.0" y="-275.0"/>
+      <ctrlPt x="50.0" y="225.0"/>
+      <ctrlPt x="-100.0" y="225.0"/>
+      <ctrlPt x="-100.0" y="125.0"/>
+    </link>
+    <link src="4" targ="11" type="StraightPath"/>
+    <link src="1" targ="12" type="StraightPath">
+      <ctrlPt x="0.0" y="-325.0"/>
+      <ctrlPt x="0.0" y="-225.0"/>
+    </link>
+    <link src="13" targ="27" type="StraightPath"/>
+    <link src="23" targ="16" type="StraightPath">
+      <ctrlPt x="-150.0" y="-375.0"/>
+      <ctrlPt x="-300.0" y="-375.0"/>
+      <ctrlPt x="-300.0" y="225.0"/>
+      <ctrlPt x="-175.0" y="225.0"/>
+    </link>
+    <link src="24" targ="30" type="StraightPath">
+      <ctrlPt x="-125.0" y="-650.0"/>
+    </link>
+    <link src="37" targ="29" type="StraightPath"/>
+  </links>
+</ModuleSim>

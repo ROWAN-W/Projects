@@ -1,0 +1,4 @@
+BEGIN 
+{ 
+READ lblock.arr $B 
+}

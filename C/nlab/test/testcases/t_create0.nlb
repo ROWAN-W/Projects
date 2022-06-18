@@ -1,0 +1,5 @@
+BEGIN 
+{ 
+ONES 3 4 $S 
+READ "lblock.arr" $B 
+}

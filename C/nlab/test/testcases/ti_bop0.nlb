@@ -1,0 +1,5 @@
+BEGIN {
+   ONES 6 5 $A
+   ONES 4 5 $B
+   SET $C := $A $B B-ADD ; 
+}

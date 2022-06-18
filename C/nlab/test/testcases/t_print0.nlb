@@ -1,0 +1,5 @@
+BEGIN 
+{ 
+PRINT $A
+PRINT "S-D"
+}

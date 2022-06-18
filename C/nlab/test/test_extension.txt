@@ -1,0 +1,37 @@
+
+  White-box testing with testcases
+  void ifstmt(Program*p)
+  1.te_if0.nlb 
+  $./extension_s test/testcases/te_if0.nlb
+  output:
+F
+1
+ARRAY:
+3 3 3 3 3
+3 3 3 3 3
+3 3 3 3 3
+3 3 3 3 3
+3 3 3 3 3
+3 3 3 3 3
+
+   2.te_if1.nlb 
+   $./extension_s test/testcases/te_if1.nlb
+   output:
+F:
+1
+
+
+   White-box testing boolop() with assertions
+   
+
+
+
+
+
+
+
+
+
+2.Testing loop() with loopb.nlb (white-box testing)
+    $ ./extension_s test/testcases/loopb.nlb
+    output:Cannot access loop index

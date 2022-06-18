@@ -1,0 +1,255 @@
+Unit testing: 
+    
+  Testing with test cases:
+    //These tests are applied during the process of development
+    //Therefore the output might be different after the following functions are finished 
+
+    void prog(Program *p)(white-box testing):  
+    Set instrclist() to return at all time
+    test cases:
+    1. t_prog0.nlb("BEGIN {")
+    $valgrind ./parse_v test/testcases/t_prog0.nlab
+    output:$Parsed OK
+
+    2.t_prog1.nlb("BEGIN{")
+    $valgrind ./parse_v test/testcases/t_prog1.nlab
+    output:$ No BEGIN statement ?
+    
+
+    3.t_prog2.nlb("BEGIN 1")
+    $valgrind ./parse_v test/testcases/t_prog2.nlab
+    output:$ MISSING { ?
+
+
+    void instrclist(Program *p) (white-box testing):
+    Set instr() to return at all time
+    test cases:
+    1.t_instrclist0.nlb("BEGIN {")
+    $valgrind ./parse_v test/testcases/t_instrclist0.nlb
+    output:$Parsed OK 
+
+    2.t_instrclist1.nlb("BEGIN { A aaaaaa abb }")
+    $valgrind ./parse_v test/testcases/t_instrclist1.nlb
+    output:$Parsed OK
+
+    void instrc(Program*p) (white-box testing):
+    Set print(), set(), ones(), read() and loop() to return with no warning
+    test cases:
+    1.t_instrc0.nlb("BEGIN { PRINT SET ONES READ LOOP }")
+    $valgrind ./parse_v test/testcases/t_instrc0.nlb
+    output:Parsed OK
+
+    2.t_instrc1.nlb("BEGIN { PINT SET ONES READ LOOP }")
+    $valgrind ./parse_v test/testcases/t_instrc1.nlb
+    output:Invalid Instruction 
+
+    3.t_instrc2.nlb("BEGIN { SaT ONES READ LOOP }")
+    $valgrind ./parse_v test/testcases/t_instrc2.nlb
+    output:Invalid Instruction     
+    
+    4.t_instrc3.nlb("BEGIN { RED LOOP }")
+    $valgrind ./parse_v test/testcases/t_instrc3.nlb
+    output:Invalid Instruction     
+        
+    5.t_instrc4.nlb("BEGIN { LP }")
+    $valgrind ./parse_v test/testcases/t_instrc3.nlb
+    output:Invalid Instruction         
+
+    void print(Program*p) (white-box testing):
+    1.t_print0.nlb("BEGIN {PRINT $A PRINT "S-D" }")
+    $valgrind ./parse_v test/testcases/t_print0.nlb
+    output:Parsed OK
+
+    2.t_print1.nlb("BEGIN { PRINT  PRINT "S-D" }")
+    $valgrind ./parse_v test/testcases/t_print1.nlb
+    output:Invalid PRINT Statement  
+
+    3.t_print2.nlb("BEGIN { "S- D" }")
+    $valgrind ./parse_v test/testcases/t_print2.nlb
+    output:Invalid Instruction  
+
+    4.t_print3.nlb ("BEGIN{PRINT "A B" }")
+    $valgrind ./parse_v test/testcases/t_print3.nlb
+    output:Invalid PRINT Statement  
+
+    void set(Program*p) (white-box testing):
+    Set polishlist() to return with no warning
+    1.t_set0.nlb("BEGIN {PRINT "S-D" SET $A := $S}")
+    $valgrind ./parse_v test/testcases/t_set0.nlb
+    output:Parsed OK
+
+    2.t_set1.nlb("BEGIN {SET $a := $S }")
+    $valgrind ./parse_v test/testcases/t_set1.nlb
+    output:Invalid SET Statement
+
+    3.t_set2.nlb("BEGIN {SET $A : $S}")
+    $valgrind ./parse_v test/testcases/t_set2.nlb
+    output:Invalid SET Statement
+
+    void polishlist(Program*p) (white-box testing):
+    1.t_polishlist0.nlb("BEGIN { SET $C := 012 $A U-NOT B-AND $B ; }")
+    $valgrind ./parse_v test/testcases/t_polishlist0.nlb
+    output:Parsed OK
+
+    2.t_polishlist1.nlb("BEGIN { SET $C := ; }")
+    $valgrind ./parse_v test/testcases/t_polishlist1.nlb
+    output:Parsed OK
+
+    3.t_polishlist2.nlb("BEGIN { SET $C := 012 $A U-NOT B-AND $B }")
+    $valgrind ./parse_v test/testcases/t_polishlist2.nlb
+    output:Invalid POLISHLIST
+
+    void ones(Program*p) and void read(Program*p) (white-box testing): 
+    1.t_create0.nlb("BEGIN { ONES 3 4 $S READ "lblock.arr" $B }")
+    $valgrind ./parse_v test/testcases/t_create0.nlb
+    output:Parsed OK
+    
+    2.t_create1.nlb("BEGIN { ONES 3 $S READ "lblock.arr" $B }")
+    $valgrind ./parse_v test/testcases/t_create1.nlb
+    output:Invalid CREATE Statement
+
+    3.t_create2.nlb("BEGIN {READ lblock.arr $B }")
+    $valgrind ./parse_v test/testcases/t_create2.nlb
+    output:Invalid CREATE Statement
+
+    void loop(Program*p)(white-box testing):
+    1.t_loop0.nlb("BEGIN { LOOP $I 10 { SET $F := $F $I B-TIMES ; PRINT $F} }")
+    $valgrind ./parse_v test/testcases/t_loop0.nlb
+    output:Parsed OK
+
+    2.t_loop1.nlb("BEGIN { LOOP $I { SET $F := $F $I B-TIMES ; PRINT $F} }")
+    $valgrind ./parse_v test/testcases/t_loop1.nlb
+    output:Invalid LOOP Statement
+
+    3.t_loop2.nlb("BEGIN { LOOP $I 0 { SET $F := $F $I B-TIMES ; PRINT $F} }")
+    $valgrind ./parse_v test/testcases/t_loop2.nlb
+    output:Invalid LOOP Statement
+
+    //Embeded loop
+    4.t_loop3.nlb("BEGIN { LOOP $I 0 { SET $F := $F $I B-TIMES ; LOOP $I 0 { SET $F := $F $I B-TIMES ; PRINT $F} PRINT $F} }")
+    $valgrind ./parse_v test/testcases/t_loop3.nlb
+    output:Parsed OK
+
+
+  Testing with assert():
+
+    bool varname(char*str)(black-box testing):
+    Testing the functionnality of varname() with assert()
+    //Valid variable names
+    assert(varname("$H"));
+    assert(varname("$G"));
+
+    //Invalid variable names
+    assert(!varname("$a"));
+    assert(!varname("$-"));
+    assert(!varname("A"));
+    assert(!varname(""));
+    assert(!varname(" "));
+    assert(!varname("-"));
+
+    bool string(char*str)(black-box testing):
+    Testing the functionnality of string() with assert()
+    //Valid strings
+    assert(string("\"abc\""));
+    assert(string("\"../test/testcases/t_instrclist0.nlb\""));
+    assert(string("\"\""));
+    assert(string("\" \""));
+    assert(string("\"=\""));
+   
+    //Ivalid strings
+    assert(string("\"abc"));
+    assert(string("abc\""));
+    assert(string("abc"));
+    assert(string("a\"b"));
+    assert(string("--"));
+    assert(string(""));
+    assert(string(" "));
+    
+    bool integer(char*str)(black-box testing):
+    Testing the functionnality of integer() with assert()
+    //Valid integers
+    assert(integer("0"));
+    assert(integer("95"));
+    assert(integer("123456"));
+
+    //Invalid integers
+    assert(!integer("abc"));
+    assert(!integer(NULL));
+    assert(!integer("17.5"));
+    assert(!integer(" "));
+    assert(!integer("-"));
+    assert(!integer("12a"));
+
+    bool pushdown(char*str)(black-box testing):
+    Testing the functionnality of pushdown() with assert()
+
+    //Valid pushdowns
+    assert(varname("$H"));
+    assert(varname("$G"));
+    assert(integer("0"));
+    assert(integer("95"));
+    assert(integer("123456"));
+
+    //Invalid pushdowns
+    assert(!varname("$a"));
+    assert(!varname("$-"));
+    assert(!varname("A"));
+    assert(!varname(""));
+    assert(!varname(" "));
+    assert(!varname("-"));
+    assert(!integer("abc"));
+    assert(!integer("1-"));
+    assert(!integer("17.5"));
+    assert(!integer(NULL));
+    assert(!integer("-"));
+    assert(!integer("12a"));
+
+    bool unaryop(char*str)(white-box testing):
+    Testing the functionnality of unaryop() with assert()
+
+    //Valid unaryops
+    assert(unaryop("U-NOT"));
+    assert(unaryop("U-EIGHTCOUNT"));
+
+    //Invalid unaryops
+    assert(!unaryop("UNOT"));
+    assert(!unaryop(NULL));
+
+    bool binaryop(char*str)(withe-box testing):
+    Testing the functionnality of binaryop() with assert()
+
+    //Valid binaryops
+    assert(binaryop("B-AND"));
+    assert(binaryop("B-OR"));
+    assert(binaryop("B-GREATER"));
+    assert(binaryop("B-LESS"));
+    assert(binaryop("B-ADD"));
+    assert(binaryop("B-TIMES"));
+    assert(binaryop("B-EQUAL"));
+
+    //Invalid binaryop
+    assert(!binaryop("BADD"));
+    assert(!binaryop(NULL));
+    assert(!binaryop("-"));
+
+    
+    
+Integration testing:
+Testing the parser with Neill's nlb files (comments in the files are deleted)
+
+$valgrind ./parse_v test/testcases/lifeb3s23.nlb ---- output:Parsed OK
+$valgrind ./parse_v test/testcases/loopa.nlb ---- output:Parsed OK
+$valgrind ./parse_v test/testcases/loopb.nlb ---- output:Parsed OK
+$valgrind ./parse_v test/testcases/nestedloop.nlb ---- output:Parsed OK
+$valgrind ./parse_v test/testcases/onesprint.nlb ---- output:Parsed OK
+$valgrind ./parse_v test/testcases/setprinta.nlb ---- output:Parsed OK
+$valgrind ./parse_v test/testcases/setprintb.nlb ---- output:Parsed OK
+$valgrind ./parse_v test/testcases/setprintc.nlb ---- output:Parsed OK
+$valgrind ./parse_v test/testcases/trivial.nlb ---- output:Parsed OK
+
+
+
+
+
+
+
